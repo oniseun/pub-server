@@ -1,7 +1,7 @@
 module.exports = class Notification {
  
-    constructor({payload , url}) {
-        this.payload = payload
-        this.url = url
+    constructor(topic, data) {
+        this.topic = topic
+        this.data = data
     }
 } 

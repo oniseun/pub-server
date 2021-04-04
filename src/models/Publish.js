@@ -1,4 +1,4 @@
-module.exports = class Published {
+module.exports = class Publish {
  
     constructor(topic, data) {
         this.topic = topic
