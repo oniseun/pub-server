@@ -1,0 +1,28 @@
+{
+  "name": "pub-server",
+  "version": "1.0.0",
+  "description": "welcome to pub-server",
+  "main": "app.js",
+  "scripts": {
+    "eslint": "eslint ./src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run eslint && export NODE_ENV=development && nodemon -r ./src/server.js",
+    "prod": "export NODE_ENV=production && node ./src/server.js"
+  },
+  "author": "seunoni34@gmail.com",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-node": "^11.0.0",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "morgan": "^1.10.0"
+  }
+}

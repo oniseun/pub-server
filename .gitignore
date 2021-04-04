@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+
+
+# the all editor specific folder
+.vscode
+
+
+# .env
+.env
+
+test.js
