@@ -8,7 +8,7 @@ module.exports = {
     }),
 
     "body": Joi.object({
-        url: Joi.string().min(5).required()
+        url: Joi.string().uri().required()
     })
 
 }
