@@ -11,7 +11,7 @@ if (result.error) {
 config.app = {
     name: "Pub-server",
     env: process.env.NODE_ENV|| 'development',
-    port: process.env.PORT || 8000,
+    port: process.env.PORT || 3000,
     logLevel: process.env.APP_LOG_LEVEL || 'debug'
     
 }
