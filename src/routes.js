@@ -17,5 +17,4 @@ app.post('/publish/:topic', AppController.publishTopic)
 app.post('/subscribe/:topic', AppController.subscribe)
 app.get('/subscribers/:topic', AppController.getSubscribers)
 
-
 }

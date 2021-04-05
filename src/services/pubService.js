@@ -11,13 +11,13 @@ const dbService =  require('../services/DbService')
 const httpService = require('../services/HttpService')
 const Subscriber = require('../models/Subscriber')
 const LOG_PREFIX = 'PubService: '
-const subsCollection = 'subs' // subscription collection
+const subsCollection = 'subscriptions' // subscription collection
 const topicsCollection = 'topics' // topics collection
 
 
 module.exports.getHeath = () => {
   const { name, description, version } = pjson;
-  return { name, description, version, env: config.app.env, stats: dbService.getStats()}
+  return { name, description, version, env: config.app.env, stats: dbService.getStats(), keys: dbService.keys()}
 } 
 
 module.exports.subscribe = ( topic, url ) => {
@@ -27,18 +27,17 @@ module.exports.subscribe = ( topic, url ) => {
   let success = false;
 
   if (!dbService.has(key)) {
-    success = dbService.set(`${subsCollection}_${topic}`, [subscription])
+    success = dbService.set(key, [subscription])
   } else {
     const subscriptions = dbService.get(key)
     subscriptions.push(subscription)
-    success = dbService.set(`${subsCollection}_${topic}`, subscriptions)
+    success = dbService.set(key, subscriptions)
   }
   if (success) {
     console.log(`${LOG_PREFIX} url:${url} Successfully subscribed to topic:${topic}`)
     return subscription
   }
   console.log(`${LOG_PREFIX} url:${url} subscription to topic:${topic} FAILED`, success)
-  console.log('dbService.getStats():', dbService.getStats())
   return success
   
 }
@@ -47,7 +46,6 @@ module.exports.getSubscribers = ( topic ) => {
   const key = `${subsCollection}_${topic}`;
 
   const response = dbService.get(key)
-  console.log('getSubscribers:',response)
 
   return !response ? [] : response.map( sub => new Subscriber(sub.url)) 
 
@@ -57,18 +55,16 @@ module.exports.publish = async ( topic, data ) => {
 
   const subscribers = module.exports.getSubscribers(topic); 
   dbService.set(`${topicsCollection}_${topic}`, new Publish(topic, data))
-  console.log('dbService.getStats():', dbService.getStats())
-  const SUCCESSFUL_PUBLISH = []
-  const FAILED_PUBLISH = []
+  const [ SUCCESSFUL_PUBLISH, FAILED_PUBLISH ] = [[], []]
   const promiseArray = subscribers.map( sub => { 
     
-    return httpService(sub.url, {}, 'POST', data)
+    return httpService(sub.url, {}, 'POST', { data })
     .then( () => {
-      console.info(`${LOG_PREFIX}publishTopicSuccess => has notified url:${sub.url} with ${topic} data`);
+      console.info(`${LOG_PREFIX}publishTopicSuccess => has notified url:${sub.url} with topic:${topic} data`);
       SUCCESSFUL_PUBLISH.push(sub.url);
     })
     .catch(err => {
-      console.error(`${LOG_PREFIX}publishTopicFailed => could not reach url:${sub.url} with ${topic} data`, err )
+      console.error(`${LOG_PREFIX}publishTopicFailed => could not reach url:${sub.url} with topic:${topic} data`, err )
       FAILED_PUBLISH.push(sub.url)
     })
   
