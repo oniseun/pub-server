@@ -59,8 +59,15 @@ module.exports.getSubscribers = ( topic ) => {
 module.exports.publish = async ( topic, data ) => {
 
   const subscribers = module.exports.getSubscribers(topic); 
+
   dbService.set(`${topicsCollection}_${topic}`, new Publish(topic, data))
   const [ SUCCESSFUL_PUBLISH, FAILED_PUBLISH ] = [[], []]
+
+  if (subscribers.length === 0 ) { // if no subscribers then nothing to do 
+    const message = enums.PUBLISH_EMPTY + topic
+    const stats = { topic, data, SUCCESSFUL_PUBLISH, FAILED_PUBLISH, subscribers }
+    return new Notification(false, topic, message, stats )
+  }
   const promiseArray = subscribers.map( sub => { 
     
     return httpService(sub.url, {}, 'POST', { data })
