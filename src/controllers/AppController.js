@@ -16,7 +16,7 @@ module.exports.subscribe = (req, res) => {
   const response = pubService.subscribe(topic, url)
   
   if (!response) {
-    return res.status(StatusCodes.BAD_GATEWAY).json({ message: `${enums.SUBSCRIPTION_FAILED}${topic}`})
+    return res.status(StatusCodes.BAD_REQUEST).json({ message: `${enums.SUBSCRIPTION_FAILED}${topic}`})
   }
   return res.status(StatusCodes.CREATED).json(response)
 }

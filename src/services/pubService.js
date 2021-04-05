@@ -30,8 +30,13 @@ module.exports.subscribe = ( topic, url ) => {
     success = dbService.set(key, [subscription])
   } else {
     const subscriptions = dbService.get(key)
-    subscriptions.push(subscription)
-    success = dbService.set(key, subscriptions)
+    const urlExist = subscriptions.find(sub => sub.url == url)
+    if (!urlExist) {
+      subscriptions.push(subscription)
+      success = dbService.set(key, subscriptions)
+    } else {
+      console.log(`${LOG_PREFIX} url:${url} already subscribed to topic:${topic}`)
+    }
   }
   if (success) {
     console.log(`${LOG_PREFIX} url:${url} Successfully subscribed to topic:${topic}`)
