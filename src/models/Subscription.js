@@ -1,6 +1,6 @@
 module.exports = class Subscription {
  
-    constructor(url, topic) {
+    constructor(topic, url) {
         this.topic = topic
         this.url = url
     }

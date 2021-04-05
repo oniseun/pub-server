@@ -6,16 +6,16 @@ module.exports = function(app) {
 ///////////////////////
 // HEALTH CHECK
 ///////////////////////
-app.get('/',        AppController.health)
-app.get('/health',  AppController.health)
+app.get('/', AppController.getHealth)
+app.get('/health', AppController.getHealth)
 
 
 /// ////////////////////////
 // SERVICE ROUTES
 /// ////////////////////////
 app.post('/publish/:topic', AppController.publishTopic)
-app.post('/subscribe/:topic',AppController.subscribe)
-app.get('/subscriptions/:topic', AppController.getSubscribers)
+app.post('/subscribe/:topic', AppController.subscribe)
+app.get('/subscribers/:topic', AppController.getSubscribers)
 
 
 }

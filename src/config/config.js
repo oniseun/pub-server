@@ -13,6 +13,12 @@ config.app = {
     env: process.env.NODE_ENV|| 'development',
     port: process.env.PORT || 8000,
     logLevel: process.env.APP_LOG_LEVEL || 'debug'
+    
+}
+
+config.db = {
+  stdTTL: process.env.DB_TTL || 3600,
+  checkperiod: process.env.DB_CHECK_PERIOD || 600
 }
 
 module.exports = config;
