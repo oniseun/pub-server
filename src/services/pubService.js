@@ -63,8 +63,9 @@ module.exports.publish = async ( topic, data ) => {
   dbService.set(`${topicsCollection}_${topic}`, new Publish(topic, data))
   const [ SUCCESSFUL_PUBLISH, FAILED_PUBLISH ] = [[], []]
 
-  if (subscribers.length === 0 ) { // if no subscribers then nothing to do 
-    const message = enums.PUBLISH_EMPTY + topic
+  if (subscribers.length === 0 ) { // no subscribers
+    const message = enums.PUBLISH_NO_SUBSCRIBERS + topic
+    console.info(`${LOG_PREFIX}publishTopicNoSubscribers => no subscribers found for topic:${topic}`);
     const stats = { topic, data, SUCCESSFUL_PUBLISH, FAILED_PUBLISH, subscribers }
     return new Notification(false, topic, message, stats )
   }

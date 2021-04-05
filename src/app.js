@@ -4,6 +4,8 @@ const app = express()
 const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
+const expressValidator = require('./middleware/expressValidator')
+
 app.use(express.json({limit: '20mb'}));
 
 app.use(helmet())
@@ -18,5 +20,6 @@ app.use(logger)
 
 require('./routes')(app)
 
+app.use(expressValidator)
 
 module.exports = app

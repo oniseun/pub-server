@@ -1,12 +1,7 @@
 # Dependency directories
 node_modules/
-
-
-# the all editor specific folder
+coverage/
 .vscode
-
-
-# .env
 .env
-
+.nyc_output
 test.js
