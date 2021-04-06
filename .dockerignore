@@ -1,8 +1,8 @@
-node_modules/
+node_modules
 npm-debug.log
 Dockerfile
 .dockerignore
 coverage/
 .vscode
-.nyc_output/
+.nyc_output
 .env
