@@ -6,4 +6,3 @@ coverage/
 .vscode
 .nyc_output/
 .env
-.gitignore
