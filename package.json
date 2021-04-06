@@ -23,6 +23,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
+    "express-rate-limit": "^5.2.6",
     "helmet": "^4.4.1",
     "http-status-codes": "^2.1.4",
     "joi": "^17.4.0",

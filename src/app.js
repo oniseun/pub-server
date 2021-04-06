@@ -4,10 +4,17 @@ const app = express()
 const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
+const rateLimit = require("express-rate-limit")
 const expressValidator = require('./middleware/expressValidator')
 
 app.use(express.json({limit: '20mb'}));
-
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to  60 requests per windowMs
+});
+   
+  //  apply to all requests
+app.use(limiter);
 app.use(helmet())
 app.use(cors({
     origin: true,
