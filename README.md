@@ -8,6 +8,9 @@
 # install dependencies
 $ npm install
 
+# TO run test
+$ npm test
+
 # serve with hot reload at localhost:8000
 $ npm run dev
 
