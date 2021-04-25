@@ -1,12 +1,13 @@
 const config = {}
 const dotenv = require("dotenv");
-const result = dotenv.config()
- 
-if (result.error) {
-  throw result.error
+const path = require("path");
+const fs = require('fs');
+const envfile = path.resolve(__dirname,`../../.env`)
+
+if (fs.existsSync(envfile)) {
+    dotenv.config()
 }
- 
-//console.log(result.parsed)
+
 
 config.app = {
     name: "Pub-server",
